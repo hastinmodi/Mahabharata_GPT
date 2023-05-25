@@ -215,7 +215,6 @@ PyJWT==2.4.0
 pylint==2.14.5
 pyls-spyder==0.4.0
 Pympler==1.0.1
-pyodbc==4.0.34
 pyOpenSSL==22.0.0
 pyparsing==3.0.9
 PyQt5-sip==12.11.0
