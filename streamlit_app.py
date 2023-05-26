@@ -13,10 +13,10 @@ from transformers import pipeline
 from typing import Mapping, Any
 import streamlit as st
 
-st.title('Mahabharata-GPT')
+st.title('Ramayana-GPT')
 prompt = st.text_input('Ask your question here')
 
-@st.cache
+#@st.cache
 class CustomLLM(LLM):
     model_name = "google/flan-t5-xl"
     device = "cpu"
@@ -34,52 +34,50 @@ class CustomLLM(LLM):
     def _llm_type(self):
         return "custom"
 
-@st.cache
-def return_index():
+#@st.cache
+# def return_index():
 
-    llm_predictor = LLMPredictor(llm=CustomLLM())
-    hfemb = HuggingFaceEmbeddings()
-    embed_model = LangchainEmbedding(hfemb)
+#     llm_predictor = LLMPredictor(llm=CustomLLM())
+#     hfemb = HuggingFaceEmbeddings()
+#     embed_model = LangchainEmbedding(hfemb)
 
-    service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor, embed_model=embed_model)
+#     service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor, embed_model=embed_model)
 
-    storage_context = StorageContext.from_defaults(
-        docstore=SimpleDocumentStore.from_persist_dir(persist_dir="index_saved"),
-        vector_store=SimpleVectorStore.from_persist_dir(persist_dir="index_saved"),
-        index_store=SimpleIndexStore.from_persist_dir(persist_dir="index_saved"),
-    )
+#     storage_context = StorageContext.from_defaults(
+#         docstore=SimpleDocumentStore.from_persist_dir(persist_dir="index_saved"),
+#         vector_store=SimpleVectorStore.from_persist_dir(persist_dir="index_saved"),
+#         index_store=SimpleIndexStore.from_persist_dir(persist_dir="index_saved"),
+#     )
 
-    index = load_index_from_storage(storage_context, service_context=service_context)
+#     index = load_index_from_storage(storage_context, service_context=service_context)
 
-    return index
+#     return index
 
-index = return_index()
+# index = return_index()
+
+# query_engine = index.as_query_engine()
+
+# if prompt:
+#     response = query_engine.query(prompt)
+#     st.write(response)
+
+llm_predictor = LLMPredictor(llm=CustomLLM())
+
+hfemb = HuggingFaceEmbeddings()
+embed_model = LangchainEmbedding(hfemb)
+
+service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor, embed_model=embed_model)
+
+storage_context = StorageContext.from_defaults(
+   docstore=SimpleDocumentStore.from_persist_dir(persist_dir="index_saved"),
+   vector_store=SimpleVectorStore.from_persist_dir(persist_dir="index_saved"),
+   index_store=SimpleIndexStore.from_persist_dir(persist_dir="index_saved"),
+)
+
+index = load_index_from_storage(storage_context, service_context=service_context)
 
 query_engine = index.as_query_engine()
 
 if prompt:
-    response = query_engine.query(prompt)
-    st.write(response)
-
-#llm_predictor = LLMPredictor(llm=CustomLLM())
-
-#hfemb = HuggingFaceEmbeddings()
-#embed_model = LangchainEmbedding(hfemb)
-
-#service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor, embed_model=embed_model)
-
-#storage_context = StorageContext.from_defaults(
-#    docstore=SimpleDocumentStore.from_persist_dir(persist_dir="index_saved"),
-#    vector_store=SimpleVectorStore.from_persist_dir(persist_dir="index_saved"),
-#    index_store=SimpleIndexStore.from_persist_dir(persist_dir="index_saved"),
-#)
-
-#index = load_index_from_storage(storage_context, service_context=service_context)
-
-#index = return_index()
-
-#query_engine = index.as_query_engine()
-
-#if prompt:
-#    response = query_engine.query(prompt)
-#    st.write(response)
+   response = query_engine.query(prompt)
+   st.write(response)
