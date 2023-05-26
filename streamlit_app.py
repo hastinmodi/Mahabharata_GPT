@@ -2,16 +2,16 @@
 # reference 2 - https://www.youtube.com/watch?v=9TxEQQyv9cE&list=PLpdmBGJ6ELULEfPWvvks0HtwzCvQo1zu0&index=8
 # reference 3 - https://www.youtube.com/watch?v=MlK6SIjcjE8&t=322s
 
-# from llama_index import LangchainEmbedding
-# from langchain.embeddings.huggingface import HuggingFaceEmbeddings
-# from llama_index import LLMPredictor, ServiceContext, load_index_from_storage, StorageContext
-# from llama_index.storage.docstore import SimpleDocumentStore
-# from llama_index.storage.storage_context import SimpleVectorStore, SimpleIndexStore
-# import torch
-# from langchain.llms.base import LLM
-# from transformers import pipeline
-# from typing import Mapping, Any
-# import streamlit as st
+from llama_index import LangchainEmbedding
+from langchain.embeddings.huggingface import HuggingFaceEmbeddings
+from llama_index import LLMPredictor, ServiceContext, load_index_from_storage, StorageContext
+from llama_index.storage.docstore import SimpleDocumentStore
+from llama_index.storage.storage_context import SimpleVectorStore, SimpleIndexStore
+import torch
+from langchain.llms.base import LLM
+from transformers import pipeline
+from typing import Mapping, Any
+import streamlit as st
 
 st.title('Ramayana-GPT')
 prompt = st.text_input('Ask your question here')
